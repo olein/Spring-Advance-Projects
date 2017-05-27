@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+    <schema-selection match-catalog="home_master"/>
+  
+    <type-mapping>
+        <sql-type jdbc-type="CHAR" length='1' hibernate-type="java.lang.String" />
+        <sql-type jdbc-type="BLOB"  hibernate-type="binary" />
+        <sql-type jdbc-type="DECIMAL"  hibernate-type="java.lang.Double" />
+        <sql-type jdbc-type="BIGINT" hibernate-type="java.lang.Long"/>
+    </type-mapping>
+    
+    <table-filter match-name="task"/>
+    <table-filter match-name="status"/>
+    <table-filter match-name="contact"/>
+    <table-filter match-name="type_of_contact"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-4.2.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security.xsd">
+    
+    <context:annotation-config />
+    <context:component-scan base-package="com.jonak"></context:component-scan>
+    <import resource="classpath:propertyEncryption.xml" />
+    
+    <!-- Authentication manager configuration -->
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                
+                <security:user name="${username}" password="${password}" authorities="ROLE_ADMIN" />
+                <!--                <user name="get" password="get" authorities="ROLE_GET" />
+                <user name="post" password="post" authorities="ROLE_POST" />
+                <user name="put" password="put" authorities="ROLE_PUT" />
+                <user name="delete" password="delete" authorities="ROLE_DELETE" />-->
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+    
+    <!-- HTTP basic authentication in Spring Security with http intercept url pattern [Option 2] -->
+    <security:http create-session="stateless" use-expressions="true">
+        <security:csrf disabled="true"/>
+        <!--        <security:intercept-url pattern="/services/userRS/user_rest_service/CreateOrUpdateUserRequest/**" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/services/userRS/user_rest_service/GetUserByIdRequest/**" access="hasRole('ROLE_ADMIN')" />-->
+        
+        <!--Comment bellow line in 30-11-2016 -->
+        <security:intercept-url pattern="/web-api/**" access="hasRole('ROLE_ADMIN')" />
+        
+        <!--SOAP URL -->
+        
+        <!--  <intercept-url pattern="/customerService/updateCustomer/**" access="hasRole('ROLE_PUT')" />-->
+        <!-- for multiple authorities use hasAnyRole -->
+        <!--  <intercept-url pattern="/customerService/deleteCustomer/**" access="hasAnyRole('ROLE_ADMIN','ROLE_DELETE')" />-->
+        <security:http-basic />
+    </security:http>    
+    
+</beans>
+    

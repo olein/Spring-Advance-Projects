@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://ws.smsgateway.netizen.com/services"         
+           xmlns:ws="http://ws.smsgateway.netizen.com/services"
+           xmlns:msg="http://ws.smsgateway.netizen.com/sms"
+           xmlns:us="http://ws.user.netizen.com/userBean" 
+           xmlns:add="http://ws.address.netizen.com/address" 
+           xmlns:brpt="http://ws.smsgateway.netizen.com/balance_report"
+           elementFormDefault="qualified">
+    
+    <xs:import namespace="http://ws.smsgateway.netizen.com/sms" schemaLocation="bean/sms.xsd"/>
+    <xs:import namespace="http://ws.address.netizen.com/address" schemaLocation="bean/address.xsd"/>
+    <xs:import namespace="http://ws.user.netizen.com/userBean" schemaLocation="bean/userBean.xsd"/>
+    <xs:import namespace="http://ws.smsgateway.netizen.com/balance_report" schemaLocation="bean/report.xsd"/>
+    
+    <xs:element name="loginRequest">
+        <xs:complexType>
+            <xs:sequence>  
+                <xs:element minOccurs="0" name="userObj" type="us:userBean"/>                                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="loginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="loginWithNameRequest">
+        <xs:complexType>
+            <xs:sequence>  
+                <xs:element minOccurs="0" name="userObj" type="us:userBean"/>                                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="loginWithNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="createUserRequest">
+        <xs:complexType>
+            <xs:sequence>  
+                <xs:element minOccurs="0" name="userObj" type="us:userBean"/>                                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="createUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="createUserWithDetailRequest">
+        <xs:complexType>
+            <xs:sequence>                  
+                <xs:element minOccurs="0" name="addressObj" type="add:addressObj"/>  
+                <xs:element minOccurs="0" name="userName" type="xs:string"/>
+                <xs:element minOccurs="0" name="password" type="xs:string"/>                                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="createUserWithDetailResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="updateUserRequest">
+        <xs:complexType>
+            <xs:sequence>  
+                <xs:element minOccurs="0" name="userObj" type="us:userBean"/>                                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="updateUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="deleteUserRequest">
+        <xs:complexType>
+            <xs:sequence>  
+                <xs:element minOccurs="0" name="userId" type="xs:int"/>                                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="deleteUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="smsSendCommaSeparatedRequest">
+        <xs:complexType>
+            <xs:sequence>       
+                <xs:element minOccurs="0" name="smsObj" type="msg:smsObject"/>  
+                <xs:element minOccurs="0" name="clientId" type="xs:string"/>
+                <xs:element minOccurs="0" name="operatorId" type="xs:string"/>
+                <xs:element minOccurs="0" name="username" type="xs:string"/>  
+                <xs:element minOccurs="0" name="password" type="xs:string"/>
+                <xs:element minOccurs="0" name="request_creator_ip" type="xs:string"/>                 
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="smsSendCommaSeparatedResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="resultCode" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="sendSmsListRequest">
+        <xs:complexType>
+            <xs:sequence>       
+                <xs:element minOccurs="0" name="smsListObj" type="msg:smsObjListObj"/>  
+                <xs:element minOccurs="0" name="clientId" type="xs:string"/>
+                <xs:element minOccurs="0" name="operatorId" type="xs:string"/>
+                <xs:element minOccurs="0" name="username" type="xs:string"/>  
+                <xs:element minOccurs="0" name="password" type="xs:string"/>  
+                <xs:element minOccurs="0" name="request_creator_ip" type="xs:string"/>                 
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="sendSmsListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="resultCode" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="smsSendRequest">
+        <xs:complexType>
+            <xs:sequence>       
+                <xs:element minOccurs="0" name="smsObj" type="msg:smsObject"/>  
+                <xs:element minOccurs="0" name="clientId" type="xs:string"/>
+                <xs:element minOccurs="0" name="operatorId" type="xs:string"/>
+                <xs:element minOccurs="0" name="username" type="xs:string"/>  
+                <xs:element minOccurs="0" name="password" type="xs:string"/> 
+                <xs:element minOccurs="0" name="request_creator_ip" type="xs:string"/>                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="smsSendResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="resultCode" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="clientSMSReportGenRequest">
+        <xs:complexType>
+            <xs:sequence>        
+                <xs:element minOccurs="0" name="clientId" type="xs:string"/>
+                <xs:element minOccurs="0" name="username" type="xs:string"/>  
+                <xs:element minOccurs="0" name="password" type="xs:string"/> 
+                <xs:element minOccurs="0" name="request_creator_ip" type="xs:string"/>                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="clientSMSReportGenResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="resultCode" type="xs:string"/>
+                <xs:element minOccurs="0" name="balanceInfoListObj" type="brpt:clientOperatorBalanceInfoListObj"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="clientRegistrationRequest">
+        <xs:complexType>
+            <xs:sequence>  
+                <xs:element minOccurs="0" name="clientId" type="xs:string"/>      
+                <xs:element minOccurs="0" name="clientName" type="xs:string"/>
+                <xs:element minOccurs="0" name="username" type="xs:string"/>  
+                <xs:element minOccurs="0" name="password" type="xs:string"/> 
+                <xs:element minOccurs="0" name="request_creator_ip" type="xs:string"/>                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="clientRegistrationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="resultCode" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    
+    
+</xs:schema>
+
