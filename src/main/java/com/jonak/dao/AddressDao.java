@@ -5,14 +5,11 @@
  */
 package com.jonak.dao;
 
-import com.jonak.entity.Contact;
-import java.io.Serializable;
-import java.util.List;
+import com.jonak.entity.Address;
 /**
  *
  * @author Fahim Fahad
  */
-public interface ContactDao extends GenericDao<Contact, Integer> {
+public interface AddressDao extends GenericDao<Address, Integer> {
     
-    public List<Contact> getUserByID(int id);
 }

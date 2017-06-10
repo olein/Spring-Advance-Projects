@@ -4,21 +4,26 @@
  * and open the template in the editor.
  */
 package com.jonak.service;
-import com.netizen.user.ws.userbean.UserBean;
+
+import com.jonak.entity.Contact;
+import com.jonak.ws.services.CreateContactRequest;
+import com.jonak.ws.services.DeleteContactRequest;
+import com.jonak.ws.services.UpdateContactRequest;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 /**
  *
  * @author lenovo
  */
-public interface UserService { 
+public interface UserService {
+
+    public CompletableFuture<Boolean> createContact(CreateContactRequest request);
+
+    public CompletableFuture<Boolean> updateContact(UpdateContactRequest request);
     
-    public Boolean checkUserLogin(UserBean userobj);
+    public CompletableFuture<Boolean> deleteContact(DeleteContactRequest request);
     
-    public Boolean checkUserLoginByName(UserBean userobj);
-    
-    public Boolean createUser(UserBean userobj);
-    
-    public Boolean updateUser(UserBean userobj);
-    
-    public Boolean deleteUser(int userId);
-    
+    public CompletableFuture<List<Contact>> getContactList();    
+
 }

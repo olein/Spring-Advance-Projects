@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://ws.address.netizen.com/address"
-           xmlns:add="http://ws.address.netizen.com/address" 
+           targetNamespace="http://ws.address.jonak.com/address"
+           xmlns:address="http://ws.address.jonak.com/address" 
            elementFormDefault="qualified">
     
-    <xs:complexType name="addressObj">
+    <xs:complexType name="address">
         <xs:sequence>            
             <xs:element minOccurs="0" name="street" type="xs:string"/>
-            <xs:element minOccurs="0" name="city" type="xs:string"/>         
+            <xs:element minOccurs="0" name="house" type="xs:string"/>         
         </xs:sequence>
     </xs:complexType>   
    

@@ -1,5 +1,5 @@
 package com.jonak.entity;
-// Generated May 27, 2017 10:23:29 PM by Hibernate Tools 4.3.1
+// Generated Jun 9, 2017 8:23:41 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;

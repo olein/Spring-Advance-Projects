@@ -10,8 +10,11 @@
         <sql-type jdbc-type="BIGINT" hibernate-type="java.lang.Long"/>
     </type-mapping>
     
-    <table-filter match-name="task"/>
-    <table-filter match-name="status"/>
+    <table-filter match-name="address"/>
     <table-filter match-name="contact"/>
-    <table-filter match-name="type_of_contact"/>
+    <table-filter match-name="task"/>
+    
+    <table name="address" catalog="home_master" class="com.jonak.entity.Address"/>
+    <table name="contact" catalog="home_master" class="com.jonak.entity.Contact"/>
+    <table name="task" catalog="home_master" class="com.jonak.entity.Task"/>
 </hibernate-reverse-engineering>

@@ -1,0 +1,35 @@
+Create contact : http://localhost:8080/Spring-Rest-Hibernate-basic-template/rest-api/createContact
+
+{
+	"street" : "street",
+	"house" : "house",	
+	"name" : "name",
+	"mobile" : "mobile",
+	"birthday" : "1992-11-11",
+	"isFnF" : true,
+	"email" : "email",
+	"typeOfContact" : "typeOfContact",
+	"description" : "description"
+}
+
+
+Update contact : http://localhost:8080/Spring-Rest-Hibernate-basic-template/rest-api/updateContact
+
+{
+	"id" : 4,	
+	"street" : "street",
+	"house" : "house",	
+	"name" : "name",
+	"mobile" : "mobile",
+	"birthday" : "1992-11-11",
+	"isFnF" : true,
+	"email" : "email",
+	"typeOfContact" : "typeOfContact",
+	"description" : "description"
+}
+
+delete contact : http://localhost:8080/Spring-Rest-Hibernate-basic-template/rest-api/deleteContact
+
+{
+	"id" : 8	
+}

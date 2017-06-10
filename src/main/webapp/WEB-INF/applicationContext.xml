@@ -40,7 +40,9 @@
                 <prop key="fomat_sql">true</prop>  
                 <prop key="hibernate.connection.SetBigStringTryBlob">true</prop>
                 <prop key="hibernate.connection.autocommit">true</prop> 
-                <prop key="hibername.jdbc.batch_size">0</prop> 
+                <prop key="hibername.jdbc.batch_size">0</prop>  
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+<!--                <prop key="hbm2ddl.auto">update</prop>         -->
 <!--                <prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.impl.FSDirectoryProvider</prop>
                 <prop key="hibernate.search.default.indexBase">F:\indexing</prop>-->
             </props>  
@@ -61,5 +63,11 @@
             <ref bean="sessionFactory"/>
         </property>
     </bean>   
+    
+    <bean id="addressDao" class="com.jonak.dao.AddressDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
    
 </beans>

@@ -6,11 +6,12 @@
 package com.jonak.dao;
 
 import com.jonak.entity.Contact;
-import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
-import org.hibernate.Criteria;
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.name;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.security.core.userdetails.User;
 /**
  *
  * @author Fahim Fahad
@@ -21,12 +22,14 @@ public class ContactDaoImpl extends GenericDaoImpl<Contact, Integer> implements 
         super(Contact.class);
     }
     
-//    public User getUserByName(String name) {       
-//        Session session = getHibernateTemplate().getSessionFactory().openSession();        
-//        List<User> user = session.createCriteria(User.class)
-//                .add(Restrictions.eq("name", name))                
-//                .list();
-//        return user.size()>0?user.get(0):null;
-//    }
+    @Override
+    public List<Contact> getUserByID(int id) {       
+        Session session = getHibernateTemplate().getSessionFactory().openSession();        
+        List<Contact> contacts = session.createCriteria(Contact.class)
+                .add(Restrictions.eq("id", id))                
+                .list();
+        session.close();
+        return contacts.size()>0?contacts:Collections.emptyList();
+    }
     
 }

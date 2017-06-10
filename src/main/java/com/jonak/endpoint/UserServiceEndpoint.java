@@ -4,109 +4,120 @@
  * and open the template in the editor.
  */
 package com.jonak.endpoint;
+
 import com.jonak.entity.Contact;
 import com.jonak.service.UserService;
-import com.netizen.smsgateway.ws.services.LoginRequest;
-import com.netizen.smsgateway.ws.services.LoginResponse;
-import com.netizen.smsgateway.ws.services.LoginWithNameRequest;
-import com.netizen.smsgateway.ws.services.LoginWithNameResponse;
-import com.netizen.smsgateway.ws.services.CreateUserRequest;
-import com.netizen.smsgateway.ws.services.CreateUserResponse;
-import com.netizen.smsgateway.ws.services.CreateUserWithDetailRequest;
-import com.netizen.smsgateway.ws.services.CreateUserWithDetailResponse;
-import com.netizen.smsgateway.ws.services.UpdateUserRequest;
-import com.netizen.smsgateway.ws.services.UpdateUserResponse;
-import com.netizen.smsgateway.ws.services.DeleteUserRequest;
-import com.netizen.smsgateway.ws.services.DeleteUserResponse;
+import com.jonak.ws.services.CreateContactRequest;
+import com.jonak.ws.services.CreateContactResponse;
+import com.jonak.ws.services.DeleteContactRequest;
+import com.jonak.ws.services.DeleteContactResponse;
+import com.jonak.ws.services.GetContactListRequest;
+import com.jonak.ws.services.GetContactListResponse;
+import com.jonak.ws.services.UpdateContactRequest;
+import com.jonak.ws.services.UpdateContactResponse;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
-import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
-import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.soap.server.endpoint.annotation.SoapAction;
+
 /**
  *
  * @author lenovo
  */
-@Endpoint
+@RestController
+@EnableAsync
 public class UserServiceEndpoint {
-    
+
     @Autowired
     UserService userService;
 
-    @PayloadRoot(localPart = "loginRequest", namespace = "http://ws.smsgateway.netizen.com/services")
-    //@SoapAction("http://ws.smsgateway.netizen.com/services/loginRequest")
-    public @ResponsePayload
-    LoginResponse getLoginResponse(@RequestPayload LoginRequest request) {
-        LoginResponse response = new LoginResponse();
-        if (request != null) {
-            Boolean output = userService.checkUserLogin(request.getUserObj());            
-            response.setResult(output);            
+    @RequestMapping(value = "/createContact", method = RequestMethod.POST,
+            produces = "application/json", consumes = "application/json")
+    public @ResponseBody
+    CreateContactResponse createContact(@RequestBody CreateContactRequest request) {
+        CreateContactResponse response = new CreateContactResponse();
+        if (request == null) {
+            response.setResult(false);
+        }
+
+        if (request.getName() != null && request.getMobile() != null) {
+            CompletableFuture<Boolean> result = userService.createContact(request);
+            try {
+                if (result.get()) {
+                    response.setResult(Boolean.TRUE);
+                } else {
+                    response.setResult(Boolean.FALSE);
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(UserServiceEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExecutionException ex) {
+                Logger.getLogger(UserServiceEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return response;
     }
-    
-     @PayloadRoot(localPart = "loginWithNameRequest", namespace = "http://ws.smsgateway.netizen.com/services")
-    //@SoapAction("http://ws.smsgateway.netizen.com/services/loginRequest")
-    public @ResponsePayload
-    LoginWithNameResponse getLoginWithNameResponse(@RequestPayload LoginWithNameRequest request) {
-        LoginWithNameResponse response = new LoginWithNameResponse();
-        if (request != null) {
-            Boolean output = userService.checkUserLoginByName(request.getUserObj());            
-            response.setResult(output);            
+
+    @RequestMapping(value = "/updateContact", method = RequestMethod.POST,
+            produces = "application/json", consumes = "application/json")
+    public @ResponseBody
+    UpdateContactResponse updateContact(@RequestBody UpdateContactRequest request) {
+        UpdateContactResponse response = new UpdateContactResponse();
+        if (request == null) {
+            response.setResult(false);
+        }
+
+        if (request.getId() != 0) {
+            CompletableFuture<Boolean> result = userService.updateContact(request);
+            try {
+                if (result.get()) {
+                    response.setResult(Boolean.TRUE);
+                } else {
+                    response.setResult(Boolean.FALSE);
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(UserServiceEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExecutionException ex) {
+                Logger.getLogger(UserServiceEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return response;
     }
-    
-    
-   
-    
-//    @PayloadRoot(localPart = "createUserWithDetailRequest", namespace = "http://ws.smsgateway.netizen.com/services")
-//    //@SoapAction("http://ws.smsgateway.netizen.com/services/loginRequest")
-//    public @ResponsePayload
-//    CreateUserWithDetailResponse createUserWithDetailRequest(@RequestPayload CreateUserWithDetailRequest request) {
-//        CreateUserWithDetailResponse response = new CreateUserWithDetailResponse();
-//        if (request != null) {
-//            Boolean output = userService.createUser(request.);            
-//            response.setResult(output);            
-//        }
-//        return response;
-//    }
-    
-    @PayloadRoot(localPart = "createUserRequest", namespace = "http://ws.smsgateway.netizen.com/services")
-    //@SoapAction("http://ws.smsgateway.netizen.com/services/loginRequest")
-    public @ResponsePayload
-    CreateUserResponse createUserResponse(@RequestPayload CreateUserRequest request) {
-        CreateUserResponse response = new CreateUserResponse();
-        if (request != null) {
-            Boolean output = userService.createUser(request.getUserObj());            
-            response.setResult(output);            
+
+    @RequestMapping(value = "/deleteContact", method = RequestMethod.POST,
+            produces = "application/json", consumes = "application/json")
+    public @ResponseBody
+    DeleteContactResponse deleteContact(@RequestBody DeleteContactRequest request) {
+        DeleteContactResponse response = new DeleteContactResponse();
+        if (request == null) {
+            response.setResult(false);
+        }
+
+        if (request.getId() != 0) {
+            CompletableFuture<Boolean> result = userService.deleteContact(request);
+            try {
+                if (result.get()) {
+                    response.setResult(Boolean.TRUE);
+                } else {
+                    response.setResult(Boolean.FALSE);
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(UserServiceEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExecutionException ex) {
+                Logger.getLogger(UserServiceEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return response;
     }
-    
-    @PayloadRoot(localPart = "updateUserRequest", namespace = "http://ws.smsgateway.netizen.com/services")
-    //@SoapAction("http://ws.smsgateway.netizen.com/services/loginRequest")
-    public @ResponsePayload
-    UpdateUserResponse updateUserResponse(@RequestPayload UpdateUserRequest request) {
-        UpdateUserResponse response = new UpdateUserResponse();
-        if (request != null) {
-            Boolean output = userService.updateUser(request.getUserObj());            
-            response.setResult(output);            
-        }
-        return response;
-    }
-    
-    @PayloadRoot(localPart = "deleteUserRequest", namespace = "http://ws.smsgateway.netizen.com/services")
-    //@SoapAction("http://ws.smsgateway.netizen.com/services/loginRequest")
-    public @ResponsePayload
-    DeleteUserResponse deleteUserResponse(@RequestPayload DeleteUserRequest request) {
-        DeleteUserResponse response = new DeleteUserResponse();
-        if (request != null) {
-            Boolean output = userService.deleteUser(request.getUserId());            
-            response.setResult(output);            
-        }
-        return response;
-    }
-    
+
 }

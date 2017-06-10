@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/home_master?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">root</property>    
-    
-    <mapping class="com.jonak.entity.Status"/>
-    <mapping class="com.jonak.entity.Task"/>    
-    <mapping class="com.jonak.entity.TypeOfContact"/>
-    <mapping class="com.jonak.entity.Contact"/>
-    
-  </session-factory>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/home_master?zeroDateTimeBehavior=convertToNull</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"/>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>    
+        <!--    <property name="hibernate.hbm2ddl.auto">update</property>-->
+
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+  
+        <mapping class="com.jonak.entity.Task"/>
+        <mapping class="com.jonak.entity.Contact"/>
+        <mapping class="com.jonak.entity.Address"/>
+    </session-factory>
 </hibernate-configuration>
