@@ -11,8 +11,6 @@ import com.jonak.ws.services.CreateContactRequest;
 import com.jonak.ws.services.CreateContactResponse;
 import com.jonak.ws.services.DeleteContactRequest;
 import com.jonak.ws.services.DeleteContactResponse;
-import com.jonak.ws.services.GetContactListRequest;
-import com.jonak.ws.services.GetContactListResponse;
 import com.jonak.ws.services.UpdateContactRequest;
 import com.jonak.ws.services.UpdateContactResponse;
 import java.util.Collections;

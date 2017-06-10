@@ -71,13 +71,17 @@ public class UserServiceImp implements UserService {
     public CompletableFuture<Boolean> updateContact(UpdateContactRequest request) {
 
         try {
-            Contact contact = contactDao.read(request.getId());
-
-            if (contact != null) {
-                Address address = contact.getAddress();
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = session.beginTransaction();
+            
+            //Contact contact = contactDao.read(request.getId()); 
+            Contact contact = session.get(Contact.class, request.getId()); 
+            
+            if (contact != null) {                
+                Address address = contact.getAddress();                
                 address.setHouse(request.getHouse());
                 address.setStreet(request.getStreet());
-
+                
                 contact.setName(request.getName());
                 contact.setBirthday(request.getBirthday());
                 contact.setDescription(request.getDescription());
@@ -87,7 +91,12 @@ public class UserServiceImp implements UserService {
                 contact.setTypeOfContact(request.getTypeOfContact());
                 contact.setAddress(address);
 
-                contactDao.createOrUpdate(contact);
+                //contactDao.createOrUpdate(contact);
+                
+                session.update(contact);
+                tx.commit();
+                session.flush();
+                session.close();
 
                 return CompletableFuture.completedFuture(true);
             } else {
